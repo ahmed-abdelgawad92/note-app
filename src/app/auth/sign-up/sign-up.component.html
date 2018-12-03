@@ -1,3 +1,57 @@
-<p>
-  sign-up works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-12 col-md-8">
+      <form class="my-5" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <h4 class="center">Login</h4>
+        <div class="form-row my-2">
+          <label for="fname" class="col-3">Firstname</label>
+          <div class="col-9">
+            <input type="text" id="fname" formControlName="fname" placeholder="Please wrtie your firstname" class="form-control"  [ngClass]="{'is-invalid': !signupForm.get('fname').valid && signupForm.get('fname').touched}">
+            <div class="invalid-feedback" *ngIf="!signupForm.get('fname').valid && signupForm.get('fname').touched">Please enter firstname</div>
+          </div>
+        </div>
+        <div class="form-row my-2">
+          <label for="lname" class="col-3">Lastname</label>
+          <div class="col-9">
+            <input type="text" id="lname" formControlName="lname" placeholder="Please wrtie your lastname" class="form-control"  [ngClass]="{'is-invalid': !signupForm.get('lname').valid && signupForm.get('lname').touched}">
+            <div class="invalid-feedback" *ngIf="!signupForm.get('lname').valid && signupForm.get('lname').touched">Please enter lastname</div>
+          </div>
+        </div>
+        <div class="form-row my-2">
+          <label for="username" class="col-3">Username</label>
+          <div class="col-9">
+            <input type="text" id="username" formControlName="username" placeholder="Please wrtie your username" class="form-control" [ngClass]="{'is-invalid': !signupForm.get('username').valid && signupForm.get('username').touched}">
+            <div class="invalid-feedback" *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">Please enter username</div>
+          </div>
+        </div>
+        <div class="form-row my-2">
+          <label for="password" class="col-3">Password</label>
+          <div class="col-9">
+            <input type="password" id="password" formControlName="password" placeholder="Please wrtie your password" class="form-control"  [ngClass]="{'is-invalid': !signupForm.get('password').valid && signupForm.get('password').touched}">
+            <div class="invalid-feedback" *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Please enter password</div>
+          </div>
+        </div>
+        <div class="form-row my-2">
+          <label for="repassword" class="col-3">Re-type Password</label>
+          <div class="col-9">
+            <input type="password" id="repassword" formControlName="repassword" placeholder="Please rewrtie your password" class="form-control"  [ngClass]="{'is-invalid': !signupForm.get('repassword').valid && signupForm.get('repassword').touched}">
+            <div class="invalid-feedback" *ngIf="!signupForm.get('repassword').valid && signupForm.get('repassword').touched">Please confirm your password</div>
+          </div>
+        </div>
+        <div class="form-row my-2">
+          <label class="col-3">Gender</label>
+          <div class="col-9">
+            <label *ngFor="let gender of genders" class="mr-3">
+              <input type="radio" formControlName="gender" value="{{gender}}">{{gender}}
+            </label>
+          </div>
+        </div>
+        <div class="center">
+          <button type="submit" class="btn btn-gold">Sign up</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

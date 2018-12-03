@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+.center{
+    text-align: center;
+}
+.btn-gold{
+    background-color: #ffd700a6 !important;
+    outline: gold;
+}
+.btn-gold:focus{
+    box-shadow: 0 0 0 0.2rem #ffc10726 !important;
+}
+.invalid-feedback{
+    display: block;
+}

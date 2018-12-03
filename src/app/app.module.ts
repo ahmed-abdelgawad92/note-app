@@ -14,6 +14,11 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AppRouterModule } from './app-router.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -29,10 +34,16 @@ import { FooterComponent } from './footer/footer.component';
     LoginComponent,
     SignUpComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
-    BrowserModule
+    HttpModule,
+    FormsModule,
+    BrowserModule,
+    AppRouterModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
