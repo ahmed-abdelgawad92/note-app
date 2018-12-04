@@ -1,13 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-6 col-md-3 my-3" *ngFor="let item of menuItems">
-      <div class="card">
-        <img src="{{item.imageUrl}}" alt="" class="card-img-top">
-        <div class="card-body">
-          <h4 class="card-title">{{item.title}}</h4>
-          <p class="card-text">{{item.paragraph}}</p>
-        </div>
-      </div>
+      <app-home-item [item]="item"></app-home-item>
     </div>
   </div>
 </div>

@@ -1,0 +1,15 @@
+<div class="card">
+  <img src="{{item.imageUrl}}" alt="" class="card-img-top">
+  <div class="card-body">
+    <h4 class="card-title">{{item.title}}</h4>
+    <p class="card-text" *ngIf="item.paragraph.length>10 && collapsed; else showAll">
+        {{item.paragraph|shorten}} <a href="#" (click)="showAllText()">show more</a>
+    </p>
+    <ng-template #showAll>
+      <p class="card-text">
+        {{item.paragraph}}
+        <a href="#" *ngIf="!collapsed" (click)="showAllText()">show less</a>
+      </p>
+    </ng-template>
+  </div>
+</div>

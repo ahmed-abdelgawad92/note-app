@@ -21,23 +21,33 @@
         <div class="form-row my-2">
           <label for="username" class="col-3">Username</label>
           <div class="col-9">
-            <input type="text" id="username" formControlName="username" placeholder="Please wrtie your username" class="form-control" [ngClass]="{'is-invalid': !signupForm.get('username').valid && signupForm.get('username').touched}">
-            <div class="invalid-feedback" *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">Please enter username</div>
+            <input type="text" id="username" formControlName="username" placeholder="Please wrtie your username" class="form-control" [ngClass]="{'is-invalid': !signupForm.get('username').valid && signupForm.get('username').touched && signupForm.get('username').errors}">
+            <div class="loading"></div>
+            <div class="invalid-feedback" *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">
+              <div *ngIf="signupForm.get('username').errors && signupForm.get('username').errors.required">Please enter username </div>
+              <div *ngIf="signupForm.get('username').errors && signupForm.get('username').errors.minlength">Username must be at least of 3 characters length </div>
+            </div>
           </div>
         </div>
+        <div formGroupName="passwordGroup">
         <div class="form-row my-2">
           <label for="password" class="col-3">Password</label>
           <div class="col-9">
-            <input type="password" id="password" formControlName="password" placeholder="Please wrtie your password" class="form-control"  [ngClass]="{'is-invalid': !signupForm.get('password').valid && signupForm.get('password').touched}">
-            <div class="invalid-feedback" *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Please enter password</div>
+            <input type="password" id="password" formControlName="password" placeholder="Please wrtie your password" class="form-control"  [ngClass]="{'is-invalid': !signupForm.get('passwordGroup.password').valid && signupForm.get('passwordGroup.password').touched}">
+            <div class="invalid-feedback" *ngIf="!signupForm.get('passwordGroup.password').valid && signupForm.get('passwordGroup.password').touched">
+              <div *ngIf="signupForm.get('passwordGroup.password').errors.required">Please enter password</div>
+              <div *ngIf="signupForm.get('passwordGroup.password').errors.minlength">Password must be at least of 8 characters</div>
+            </div>
           </div>
         </div>
         <div class="form-row my-2">
           <label for="repassword" class="col-3">Re-type Password</label>
           <div class="col-9">
-            <input type="password" id="repassword" formControlName="repassword" placeholder="Please rewrtie your password" class="form-control"  [ngClass]="{'is-invalid': !signupForm.get('repassword').valid && signupForm.get('repassword').touched}">
-            <div class="invalid-feedback" *ngIf="!signupForm.get('repassword').valid && signupForm.get('repassword').touched">Please confirm your password</div>
+            <input type="password" id="repassword" formControlName="repassword" placeholder="Please rewrtie your password" class="form-control"  [ngClass]="{'is-invalid': !signupForm.get('passwordGroup.repassword').valid && signupForm.get('passwordGroup.repassword').touched}">
+            <div class="invalid-feedback" *ngIf="!signupForm.get('passwordGroup.repassword').valid && signupForm.get('passwordGroup.repassword').touched">Please confirm your password</div>
+            <div class="invalid-feedback" *ngIf="!signupForm.get('passwordGroup').valid && signupForm.get('passwordGroup').touched && signupForm.get('passwordGroup.repassword').touched && signupForm.get('passwordGroup.password').touched">Passwords don't match!</div>
           </div>
+        </div>
         </div>
         <div class="form-row my-2">
           <label class="col-3">Gender</label>

@@ -19,6 +19,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AppRouterModule } from './app-router.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { ShortenPipe } from './shorten.pipe';
+import { HomeItemComponent } from './home/home-item/home-item.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { HttpModule } from '@angular/http';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ShortenPipe,
+    HomeItemComponent
   ],
   imports: [
     HttpModule,

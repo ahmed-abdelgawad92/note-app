@@ -11,3 +11,14 @@
 .invalid-feedback{
     display: block;
 }
+.ng-pending ~ .loading{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    z-index: 100000;
+    background: url('https://loading.io/spinners/balls/lg.circle-slack-loading-icon.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+}
