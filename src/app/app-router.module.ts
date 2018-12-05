@@ -10,6 +10,7 @@ import { ProfileComponent } from "./users/profile/profile.component";
 import { UserEditComponent } from "./users/user-edit/user-edit.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { NgModule } from "@angular/core";
+import { UsersComponent } from "./users/users.component";
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent},
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
         { path: ':id/edit', component: NoteEditComponent},
         { path: 'create', component: NoteAddComponent}
     ]},
+    { path: 'users', component: UsersComponent},
     { path: 'user/profile', component: ProfileComponent},
     { path: 'user/edit', component: UserEditComponent},
     { path: 'not-found-error', component: PageNotFoundComponent},

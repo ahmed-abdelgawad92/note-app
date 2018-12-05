@@ -1,3 +1,4 @@
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -21,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ShortenPipe } from './shorten.pipe';
 import { HomeItemComponent } from './home/home-item/home-item.component';
+import { UserService } from './users/user.service';
 
 @NgModule({
   declarations: [
@@ -40,16 +42,17 @@ import { HomeItemComponent } from './home/home-item/home-item.component';
     HomeComponent,
     PageNotFoundComponent,
     ShortenPipe,
-    HomeItemComponent
+    HomeItemComponent,
   ],
   imports: [
     HttpModule,
     FormsModule,
     BrowserModule,
     AppRouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
