@@ -1,3 +1,15 @@
-<p>
-  profile works!
-</p>
+<div class="card" *ngIf="user; else loading;">
+  <div class="card-header">
+    {{user.name}}
+  </div>
+  <div class="card-body">
+    <img src="https://vignette.wikia.nocookie.net/marsargo/images/5/52/Unknown.jpg/revision/latest?cb=20170904102656" alt="No Photo">
+    <p>gender : {{user.gender}}</p>
+    <p>age : {{user.age}}</p>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="center">
+    <img src="https://loading.io/spinners/balls/lg.circle-slack-loading-icon.gif" alt="">
+  </div>
+</ng-template>

@@ -21,11 +21,12 @@ const appRoutes: Routes = [
         { path: ':id/edit', component: NoteEditComponent},
         { path: 'create', component: NoteAddComponent}
     ]},
-    { path: 'users', component: UsersComponent},
-    { path: 'user/profile', component: ProfileComponent},
-    { path: 'user/edit', component: UserEditComponent},
+    { path: 'users', component: UsersComponent, children:[
+        { path: 'profile/:id', component: ProfileComponent},
+        { path: 'edit', component: UserEditComponent},
+    ]},
     { path: 'not-found-error', component: PageNotFoundComponent},
-    { path: '**', redirectTo: 'not-found-error'}
+    { path: '**', component: PageNotFoundComponent}
 ];
 @NgModule({
     imports:[

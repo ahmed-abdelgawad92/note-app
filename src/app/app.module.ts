@@ -23,6 +23,7 @@ import { HttpModule } from '@angular/http';
 import { ShortenPipe } from './shorten.pipe';
 import { HomeItemComponent } from './home/home-item/home-item.component';
 import { UserService } from './users/user.service';
+import { UserComponent } from './users/user/user.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { UserService } from './users/user.service';
     PageNotFoundComponent,
     ShortenPipe,
     HomeItemComponent,
+    UserComponent,
   ],
   imports: [
     HttpModule,

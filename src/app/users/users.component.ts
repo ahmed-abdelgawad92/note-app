@@ -9,18 +9,13 @@ import { User } from './user.model';
 })
 export class UsersComponent implements OnInit {
   users: User[];
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(
-      (response) => {
-        let data = response.json();
-        this.users = <User[]>data;
-        console.log(this.users);
-        console.log(typeof this.users);
-      },
-      (error) => console.log(error)
-    );
+    this.userService.getUsers().subscribe((users: User[]) =>  {
+      this.users = users;
+      
+    });
   }
 
 }

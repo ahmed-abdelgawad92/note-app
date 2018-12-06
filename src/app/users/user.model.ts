@@ -1,6 +1,6 @@
 export class User{
-    constructor(public name:string, public gender:string, public age:number){}
+    constructor(public id: number,public name:string, public gender:string, public age:number){}
     getName(){
-        return this.name;
+        return this.name.toUpperCase();
     }
 }
