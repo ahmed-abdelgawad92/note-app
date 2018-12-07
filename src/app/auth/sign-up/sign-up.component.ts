@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,11 +11,11 @@ import { Observable } from 'rxjs';
 export class SignUpComponent implements OnInit {
   genders = ['male','female'];
   signupForm: FormGroup;
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
-      'username': new FormControl(null,[ Validators.required, Validators.minLength(3)], this.forbiddenUsername),
+      'email': new FormControl(null,[ Validators.required, Validators.minLength(3)], this.forbiddenUsername),
       'lname': new FormControl(null, Validators.required),
       'fname': new FormControl(null, Validators.required),
       'passwordGroup': new FormGroup({
@@ -26,7 +27,12 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.signupForm);
+    console.log(this.signupForm.value);
+    this.authService.signUp(this.signupForm.value).subscribe(
+      (response) => {
+        console.log(response.json());
+      }
+    );
   }
 
   confirmPassword(pass: FormGroup): {[s: string]: boolean}{

@@ -24,6 +24,7 @@ import { ShortenPipe } from './shorten.pipe';
 import { HomeItemComponent } from './home/home-item/home-item.component';
 import { UserService } from './users/user.service';
 import { UserComponent } from './users/user/user.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,10 @@ import { UserComponent } from './users/user/user.component';
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

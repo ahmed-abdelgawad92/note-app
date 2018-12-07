@@ -19,13 +19,13 @@
           </div>
         </div>
         <div class="form-row my-2">
-          <label for="username" class="col-3">Username</label>
+          <label for="email" class="col-3">Email</label>
           <div class="col-9">
-            <input type="text" id="username" formControlName="username" placeholder="Please wrtie your username" class="form-control" [ngClass]="{'is-invalid': !signupForm.get('username').valid && signupForm.get('username').touched && signupForm.get('username').errors}">
+            <input type="email" id="email" formControlName="email" placeholder="Please wrtie your email" class="form-control" [ngClass]="{'is-invalid': !signupForm.get('email').valid && signupForm.get('email').touched && signupForm.get('email').errors}">
             <div class="loading"></div>
-            <div class="invalid-feedback" *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">
-              <div *ngIf="signupForm.get('username').errors && signupForm.get('username').errors.required">Please enter username </div>
-              <div *ngIf="signupForm.get('username').errors && signupForm.get('username').errors.minlength">Username must be at least of 3 characters length </div>
+            <div class="invalid-feedback" *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">
+              <div *ngIf="signupForm.get('email').errors && signupForm.get('email').errors.required">Please enter username </div>
+              <div *ngIf="signupForm.get('email').errors && signupForm.get('email').errors.minlength">Username must be at least of 3 characters length </div>
             </div>
           </div>
         </div>
@@ -58,7 +58,12 @@
           </div>
         </div>
         <div class="center">
-          <button type="submit" class="btn btn-gold">Sign up</button>
+          <button 
+            type="submit" 
+            class="btn btn-gold" 
+            [disabled]="!signupForm.valid">
+            Sign up
+          </button>
         </div>
       </form>
     </div>
