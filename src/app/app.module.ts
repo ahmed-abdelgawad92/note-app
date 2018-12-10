@@ -25,6 +25,7 @@ import { HomeItemComponent } from './home/home-item/home-item.component';
 import { UserService } from './users/user.service';
 import { UserComponent } from './users/user/user.component';
 import { AuthService } from './auth/auth.service';
+import { CustomMaterialModule } from './shared/custom-material.module';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AuthService } from './auth/auth.service';
     BrowserModule,
     AppRouterModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CustomMaterialModule
   ],
   providers: [
     UserService,

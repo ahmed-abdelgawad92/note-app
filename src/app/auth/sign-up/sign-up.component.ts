@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { ParentErrorStateMatcher } from 'src/app/shared/parent-state-matcher';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,13 +10,15 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+  hide = true;
   genders = ['male','female'];
   signupForm: FormGroup;
+  matcher = new ParentErrorStateMatcher();
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
-      'email': new FormControl(null,[ Validators.required, Validators.minLength(3)], this.forbiddenUsername),
+      'email': new FormControl(null,[ Validators.required, Validators.minLength(3), Validators.email]),
       'lname': new FormControl(null, Validators.required),
       'fname': new FormControl(null, Validators.required),
       'passwordGroup': new FormGroup({
@@ -27,16 +30,18 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.signupForm.value);
-    this.authService.signUp(this.signupForm.value).subscribe(
-      (response) => {
-        console.log(response.json());
-      }
-    );
+    console.log(this.signupForm);
+    if(!this.signupForm.invalid){
+      this.authService.signUp(this.signupForm.value).subscribe(
+        (response) => {
+          console.log(response.json());
+        }
+      );
+    }
   }
 
   confirmPassword(pass: FormGroup): {[s: string]: boolean}{
-    return pass.value.password === pass.value.repassword ? null : {'unmatchedPasswords': true};
+    return pass.value.password === pass.value.repassword ? null : { 'unmatchedPasswords': true };
   }
   
   forbiddenUsername(control: FormControl): Promise<any> | Observable<any>{
