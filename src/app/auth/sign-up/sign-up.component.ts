@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ParentErrorStateMatcher } from 'src/app/shared/parent-state-matcher';
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,10 +13,16 @@ import { ParentErrorStateMatcher } from 'src/app/shared/parent-state-matcher';
 })
 export class SignUpComponent implements OnInit {
   hide = true;
+  loading= false;
   genders = ['male','female'];
   signupForm: FormGroup;
   matcher = new ParentErrorStateMatcher();
-  constructor(private authService: AuthService) { }
+  alertDanger = true;
+  alertSuccess = true;
+  alertContent = '';
+  constructor(private authService: AuthService, 
+              public snackBar: MatSnackBar,
+              private router: Router) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
@@ -30,16 +38,35 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.signupForm);
     if(!this.signupForm.invalid){
+      this.loading = true;
       this.authService.signUp(this.signupForm.value).subscribe(
         (response) => {
-          console.log(response.json());
+          let data = response.json();
+          console.log(data);
+          if(data.success){
+            this.alertSuccess = false;
+            this.alertContent = data.success;
+            setTimeout(() => {
+              this.router.navigate(['login']);
+            },1000);
+          }else{
+            if(data.error){
+              this.alertDanger = false;
+              this.alertContent = data.error;
+            }
+            this.signupForm.controls['email'].setErrors(this.backEndErrorHandler(data.email));           
+            this.signupForm.controls['fname'].setErrors(this.backEndErrorHandler(data.fname));
+            this.signupForm.controls['lname'].setErrors(this.backEndErrorHandler(data.lname));
+            this.signupForm.get('passwordGroup.password').setErrors(this.backEndErrorHandler(data['passwordGroup.password']));
+            this.signupForm.get('passwordGroup.repassword').setErrors(this.backEndErrorHandler(data['passwordGroup.repassword']));
+            this.signupForm.controls['gender'].setErrors(this.backEndErrorHandler(data.gender));
+            this.loading = false;
+          }
         }
-      );
+        );
     }
   }
-
   confirmPassword(pass: FormGroup): {[s: string]: boolean}{
     return pass.value.password === pass.value.repassword ? null : { 'unmatchedPasswords': true };
   }
@@ -54,5 +81,8 @@ export class SignUpComponent implements OnInit {
       },1500);
     });
     return promise;
+  }
+  backEndErrorHandler(errors){
+    return (errors == null) ? null : { backEndErrors: errors};
   }
 }

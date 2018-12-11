@@ -5,7 +5,9 @@ import {
     MatRadioModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
 } from '@angular/material';
 import { NgModule } from '@angular/core';
 
@@ -17,7 +19,9 @@ import { NgModule } from '@angular/core';
         MatRadioModule,
         MatFormFieldModule,
         MatInputModule,
-        MatCardModule
+        MatCardModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         MatButtonModule, 
@@ -26,7 +30,9 @@ import { NgModule } from '@angular/core';
         MatRadioModule,
         MatFormFieldModule,
         MatInputModule,
-        MatCardModule
+        MatCardModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule
     ],
 })
 export class CustomMaterialModule { }

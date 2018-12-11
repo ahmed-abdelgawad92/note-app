@@ -7,18 +7,22 @@
           <mat-card-title>Sign Up</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <form class="my-5" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <div class="alert alert-danger" [hidden]="alertDanger">{{alertContent}}</div>
+          <div class="alert alert-success" [hidden]="alertSuccess">{{alertContent}}</div>
+          <form class="my-5" [hidden]="loading" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
             <mat-form-field class="w-100">
               <mat-label>First name</mat-label>
               <input matInput formControlName="fname" placeholder="Please enter your first name">
               <mat-icon matSuffix>account_box</mat-icon>
               <mat-error *ngIf="signupForm.get('fname').hasError('required')">First name is required</mat-error>
+              <mat-error *ngFor="let error of signupForm.get('fname').errors?.backEndErrors">{{error}}</mat-error>
             </mat-form-field>
             <mat-form-field class="w-100">
               <mat-label>Last name</mat-label>
               <input matInput formControlName="lname" placeholder="Please entger your last name">
               <mat-icon matSuffix>account_box</mat-icon>
               <mat-error *ngIf="signupForm.get('lname').hasError('required')">Last name is required</mat-error>
+              <mat-error *ngFor="let error of signupForm.get('lname').errors?.backEndErrors">{{error}}</mat-error>
             </mat-form-field>
             <!--<div class="form-row my-2">
               <label for="email" class="col-3">Email</label>
@@ -37,6 +41,7 @@
               <mat-icon matSuffix>email</mat-icon>
               <mat-error *ngIf="signupForm.get('email').hasError('required')">Email is required</mat-error>
               <mat-error *ngIf="signupForm.get('email').hasError('email')">Email must be valid</mat-error>
+              <mat-error *ngFor="let error of signupForm.get('email').errors?.backEndErrors">{{error}}</mat-error>
             </mat-form-field>
             <div formGroupName="passwordGroup">
               <mat-form-field class="w-100">
@@ -45,6 +50,7 @@
                 <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 <mat-error *ngIf="signupForm.get('passwordGroup.password').hasError('required')">Password is required</mat-error>
                 <mat-error *ngIf="signupForm.get('passwordGroup.password').hasError('minlength')">Password must be at least of 8 characters</mat-error>
+                <mat-error *ngFor="let error of signupForm.get('passwordGroup.password').errors?.backEndErrors">{{error}}</mat-error>
               </mat-form-field>
               <mat-form-field class="w-100">
                 <mat-label>Confirm Password</mat-label>
@@ -52,6 +58,7 @@
                 <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 <mat-error *ngIf="signupForm.get('passwordGroup.repassword').hasError('required')">Please confirm your password</mat-error>
                 <mat-error *ngIf="signupForm.get('passwordGroup').hasError('unmatchedPasswords')">Passwords don't match!</mat-error>
+                <mat-error *ngFor="let error of signupForm.get('passwordGroup.repassword').errors?.backEndErrors">{{error}}</mat-error>
               </mat-form-field>
             </div>
             <div class="form-row my-2">
@@ -60,6 +67,7 @@
                 <mat-radio-group formControlName="gender">
                   <mat-radio-button color="primary" *ngFor="let gender of genders" class="mr-3" value="{{gender}}">{{gender}}</mat-radio-button>
                 </mat-radio-group>
+                <mat-error *ngFor="let error of signupForm.get('gender').errors?.backEndErrors">{{error}}</mat-error>
               </div>
             </div>
             <div class="center">
@@ -72,6 +80,7 @@
               </button>
             </div>
           </form>
+          <mat-spinner style="margin:20px auto;" [hidden]="!loading"></mat-spinner>
         </mat-card-content>
       </mat-card>
     </div>
