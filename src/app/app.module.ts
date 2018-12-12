@@ -19,13 +19,14 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRouterModule } from './app-router.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { ShortenPipe } from './shorten.pipe';
 import { HomeItemComponent } from './home/home-item/home-item.component';
 import { UserService } from './users/user.service';
 import { UserComponent } from './users/user/user.component';
 import { AuthService } from './auth/auth.service';
 import { CustomMaterialModule } from './shared/custom-material.module';
+import { JWT } from './auth/jwt-token.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { CustomMaterialModule } from './shared/custom-material.module';
     UserComponent,
   ],
   imports: [
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     BrowserModule,
     AppRouterModule,
@@ -59,7 +60,8 @@ import { CustomMaterialModule } from './shared/custom-material.module';
   ],
   providers: [
     UserService,
-    AuthService
+    AuthService,
+    JWT
   ],
   bootstrap: [AppComponent]
 })

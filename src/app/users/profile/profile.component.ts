@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.userService.getUser(params['id']).subscribe(
-          (user: User) => this.user = user
+          (user) => console.log(user)
         )
       }
     );

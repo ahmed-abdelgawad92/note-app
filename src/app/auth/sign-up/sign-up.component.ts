@@ -41,26 +41,25 @@ export class SignUpComponent implements OnInit {
     if(!this.signupForm.invalid){
       this.loading = true;
       this.authService.signUp(this.signupForm.value).subscribe(
-        (response) => {
-          let data = response.json();
+        (data) => {
           console.log(data);
-          if(data.success){
+          if(data['success']){
             this.alertSuccess = false;
-            this.alertContent = data.success;
+            this.alertContent = data['success'];
             setTimeout(() => {
               this.router.navigate(['login']);
             },1000);
           }else{
-            if(data.error){
+            if(data['error']){
               this.alertDanger = false;
-              this.alertContent = data.error;
+              this.alertContent = data['error'];
             }
-            this.signupForm.controls['email'].setErrors(this.backEndErrorHandler(data.email));           
-            this.signupForm.controls['fname'].setErrors(this.backEndErrorHandler(data.fname));
-            this.signupForm.controls['lname'].setErrors(this.backEndErrorHandler(data.lname));
+            this.signupForm.controls['email'].setErrors(this.backEndErrorHandler(data['email']));           
+            this.signupForm.controls['fname'].setErrors(this.backEndErrorHandler(data['fname']));
+            this.signupForm.controls['lname'].setErrors(this.backEndErrorHandler(data['lname']));
             this.signupForm.get('passwordGroup.password').setErrors(this.backEndErrorHandler(data['passwordGroup.password']));
             this.signupForm.get('passwordGroup.repassword').setErrors(this.backEndErrorHandler(data['passwordGroup.repassword']));
-            this.signupForm.controls['gender'].setErrors(this.backEndErrorHandler(data.gender));
+            this.signupForm.controls['gender'].setErrors(this.backEndErrorHandler(data['gender']));
             this.loading = false;
           }
         }

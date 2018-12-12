@@ -1,20 +1,30 @@
-import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
-import { User } from "./user.model";
+import { Injectable, OnInit } from "@angular/core";
 import { map } from 'rxjs/operators';
+import { AuthService } from "../auth/auth.service";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 @Injectable()
-export class UserService{
-    constructor(private http: Http){}
+export class UserService implements OnInit{
+    ngOnInit(): void {
+        
+    }
+    userURL = 'http://127.0.0.1:8000/api/users/';
+    constructor(private http: HttpClient, private auth: AuthService){}
     getUser(id: number){
-        return this.http.get('http://127.0.0.1:8000/api/users/'+id).pipe(
-            map((response: Response) => {
-                const data = response.json();
-                return data;
-            })
-        );
+        if(this.auth.jwt.isAuthenticated()){
+            return this.http.get(this.userURL+id+this.auth.getToken()).pipe(
+                map((response: Response) => {
+                    const data = response.json();
+                    return data;
+                })
+            );
+        }
+        return null;
     }
     getUsers(){
-        return this.http.get('http://127.0.0.1:8000/api/users').pipe(
+        this.auth.jwt.isAuthenticated()
+        
+        return this.http.get(this.userURL.slice(0,this.userURL.length-1)+this.auth.getToken()).pipe(
             map((response: Response) => {
                 const data = response.json();
                 return data;
