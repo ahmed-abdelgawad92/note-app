@@ -9,18 +9,28 @@
       <li class="nav-item">
         <a class="nav-link" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" [routerLink]="['/']">Home</a>
       </li>
+      <ng-template [ngIf]="!auth.isAuthenticated()">
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/sign-up']">Sign up</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active" [routerLink]="['/login']">Login</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/notes']">Notes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/notes/create']">Create Note</a>
-      </li>
+      </ng-template>
+      <ng-template [ngIf]="auth.isAuthenticated()">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/users']">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/notes']">Notes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/notes/create']">Create Note</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="auth.deleteToken()">Logout</a>
+        </li>
+      </ng-template>
     </ul>
   </div>
 </nav>

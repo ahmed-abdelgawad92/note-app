@@ -25,8 +25,9 @@ import { UserService } from './users/user.service';
 import { UserComponent } from './users/user/user.component';
 import { AuthService } from './auth/auth.service';
 import { CustomMaterialModule } from './shared/custom-material.module';
-import { JWT } from './auth/jwt-token.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthGuard } from './auth/auth-guard.service';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,12 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     UserService,
     AuthService,
-    JWT
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

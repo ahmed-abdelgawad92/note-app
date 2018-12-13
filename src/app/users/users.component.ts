@@ -16,5 +16,11 @@ export class UsersComponent implements OnInit {
       console.log(users);
     });
   }
-
+  refreshToken(){
+    this.userService.refreshToken().subscribe(
+      (data) => console.log(data)
+      
+    );
+  }
+  
 }

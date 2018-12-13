@@ -11,17 +11,18 @@ import { UserEditComponent } from "./users/user-edit/user-edit.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { NgModule } from "@angular/core";
 import { UsersComponent } from "./users/users.component";
+import { AuthGuard } from "./auth/auth-guard.service";
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent},
     { path: 'login', component: LoginComponent},
     { path: 'sign-up', component: SignUpComponent},
-    { path: 'notes', component: NotesComponent, children:[
+    { path: 'notes', component: NotesComponent, canActivate:[AuthGuard], children:[
         { path: ':id', component: NoteComponent},
         { path: ':id/edit', component: NoteEditComponent},
         { path: 'create', component: NoteAddComponent}
     ]},
-    { path: 'users', component: UsersComponent, children:[
+    { path: 'users', component: UsersComponent, canActivate:[AuthGuard], children:[
         { path: 'profile/:id', component: ProfileComponent},
         { path: 'edit', component: UserEditComponent},
     ]},

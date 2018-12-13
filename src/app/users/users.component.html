@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-4">
+      <button (click)="refreshToken()">refresh token</button>
       <div class="row mb-3" *ngFor="let user of users">
         <app-user [user]="user" class="w-100"></app-user>
       </div>

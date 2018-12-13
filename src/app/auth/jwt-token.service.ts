@@ -1,67 +1,53 @@
 export class JWT{
     private storageKey: string = 'ACCESS_TOKEN';
-    protected rawToken: string;
-    protected payload: Object; 
-    protected header: Object;
-    //rawToken setter & getter
-    setRawToken(value){
-        this.rawToken = value;
-        console.log(this.rawToken);
-        
+    private refresh_ttl: number = 20160;
+    //payload getter
+    getPayload() {
+        let rawToken = localStorage.getItem(this.storageKey);
+        if(rawToken==null)
+            return null;
+        let payload = rawToken.split('.')[1];
+        return JSON.parse(window.atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
     }
-    getRawToken(){
-        return this.rawToken;
+    //header getter
+    getHeader() {
+        let rawToken = localStorage.getItem(this.storageKey);
+        if (rawToken == null)
+            return null;
+        let header = rawToken.split('.')[0];
+        return JSON.parse(window.atob(header.replace(/-/g, '+').replace(/_/g, '/')));
     }
-    //payload setter & getter
-    setPayload(value){
-        this.payload = JSON.parse(window.atob(value.replace(/-/g, '+').replace(/_/g, '/')));
+    // save token in the localstorage
+    saveToken(token: string) {
+        localStorage.setItem(this.storageKey, token);
     }
-    getPayload(){
-        return this.payload;
+    // retrieve token from localstorage 
+    getToken() {
+        return localStorage.getItem(this.storageKey);
     }
-    //header setter & getter
-    setHeader(value){
-        this.header = JSON.parse(window.atob(value.replace(/-/g, '+').replace(/_/g, '/')));
-    }
-    getHeader(){
-        return this.header;
-    }
-    // save token in the localstorage and fill class attributes
-    saveTokenToStorage(token: string){
-        localStorage.setItem(this.storageKey,token);
-        let tokenParts = token.split('.');
-        this.setRawToken(token);
-        this.setHeader(tokenParts[0]);
-        this.setPayload(tokenParts[1]);       
-    }
-    // retrieve token from localstorage and fill class attributes
-    getTokenFromStorage(){
-        let token = localStorage.getItem(this.storageKey);
-        let tokenParts = token.split('.');
-        this.setRawToken(token);
-        this.setHeader(tokenParts[0]);
-        this.setPayload(tokenParts[1]);
+    // retrieve token to set request headers
+    getTokenAuthorization() {
+        return 'Bearer ' + this.getToken();
     }
     //remove all token details during logout
-    deleteToken(){
-        this.rawToken = null;
-        this.payload = null;
-        this.header = null;
+    deleteToken() {
         localStorage.removeItem(this.storageKey);
     }
-    //return true if the token already expired
-    isExpired(){
-        return this.payload['exp'] < Math.round((new Date()).getTime() / 1000);
+    //return true if the token already expired on client
+    isExpiredOnClient(){
+        let payload = this.getPayload();
+        return payload['exp'] < Math.round((new Date()).getTime() / 1000);
+    }
+    //return true if the token already expired on server
+    isExpiredOnServer(){
+        let payload = this.getPayload();
+        return (payload['iat'] + this.refresh_ttl) < Math.round((new Date()).getTime() / 1000);
     }
     //return true only if the user is authenticated
     isAuthenticated(){
-        if(this.rawToken != null && this.payload != null){
-            return (this.isExpired()) ? false : true;
-        }
         if(localStorage.getItem(this.storageKey) != null){
-            this.getTokenFromStorage();
-            return (this.isExpired()) ? false : true;
+            return this.isExpiredOnServer() ? false : true;
         }
         return false; 
-    }
+    } 
 }
