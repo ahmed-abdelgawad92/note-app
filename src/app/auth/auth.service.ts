@@ -26,6 +26,10 @@ export class AuthService extends JWT{
             })
         );
     }
+    signOut(){
+        this.deleteToken();
+        this.router.navigate['/login'];
+    }
     refreshToken() {
         return this.http.get<void>('http://127.0.0.1:8000/api/users/token', {
             headers: new HttpHeaders({

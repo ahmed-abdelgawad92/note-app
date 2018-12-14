@@ -1,4 +1,7 @@
 <div class="card">
+  <div [ngClass]="{
+  'show-more': !collapsed 
+  }" (mouseleave)="collapsed=true">
   <img src="{{item.imageUrl}}" alt="" class="card-img-top">
   <div class="card-body">
     <h4 class="card-title">{{item.title}}</h4>
@@ -8,8 +11,8 @@
     <ng-template #showAll>
       <p class="card-text">
         {{item.paragraph}}
-        <a href="#" *ngIf="!collapsed" (click)="showAllText()">show less</a>
       </p>
     </ng-template>
+  </div>
   </div>
 </div>

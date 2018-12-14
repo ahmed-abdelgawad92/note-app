@@ -23,11 +23,7 @@ export class LoginComponent implements OnInit {
     if(!this.loginForm.invalid){
       this.authService.signIn(this.loginForm.value.email, this.loginForm.value.password).subscribe(
         (response) => {
-          console.log(response);
-          
-        },
-        (error) => {
-          console.log(error.json());
+          console.log(response); 
         }
       );
     }

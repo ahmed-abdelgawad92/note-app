@@ -1,0 +1,11 @@
+.show-more{
+    position: absolute;
+    z-index: 1000;
+    box-shadow: 1px 1px 15px grey, -1px -1px 15px grey;
+    transition: 0.5s all;
+    background: white;
+}
+.card{
+    clear: both;
+    transition: 0.5s all;
+}
